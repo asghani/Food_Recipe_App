@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+      body {
+        background-image: url(bg.jpg);
+      }
+      .container {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+      }      
+      .ingBox {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+      }
+      .ingHeading {
+        color: white;
+        font-size: 3rem;
+      }
+      .main {
+        justify-content: center;
+        margin: auto;
+        align-items: center;
+      }
+      .products {
+        border-radius: 20px;
+        height: 550px;
+        padding: 10px;
+        border: 2px solid rgb(0, 0, 0);
+        background-color: rgba(0, 0, 0, 0.35);
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        margin-bottom: 20px;
+
+      }
+      .img {
+        border-radius: 20px;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        margin: auto;
+        border-radius: 20px;
+      }
+      .image{
+        border-radius: 20px;
+      }
+      .title {
+        font-size: 1.8rem;
+        color: white;
+        padding: 20px;
+      }
+      .singlePageBtn {
+        background-color: rgb(6, 202, 6);
+        padding: 10px;
+        border-radius: 8px;
+        margin-top: auto;
+        font-size: 1.1rem;
+      }
+      .anchor {
+        display: flex;
+        justify-content: center;
+        font-style: none;
+        color: white;
+      }
+      a:link {
+        text-decoration: none;
+      }
+      .detail {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+      }
+      .ingCont {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        border: 2px solid #000000;
+        border-radius: 20px;
+        background-color: rgba(0, 0, 0, 0.35);
+      }
+      .ingHeading {
+        font-size: 2.5rem;
+      }
+      .main1 {
+        color: white;
+        padding: 30px;
+      }
+      .SummCont{
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        border: 2px solid rgb(0, 0, 0);
+        border-radius: 20px;
+        background-color: rgba(0, 0, 0, 0.35);
+      }
+      .SummHeading {
+        color: rgb(255, 255, 255);
+        font-size: 2.5rem;
+        padding: 5px;
+      }
+      .main2 {
+        color: white;
+        padding: 30px;
+        font-size: 1.4rem;
+        width: 60vw;
+      }
+      .main-li {
+        list-style-type: none;
+        font-size: 1.5rem;
+        margin: -6px;
+      }
+      @media screen and (max-width: 1290px) {
+        .main2 {
+          width: 90vw;
+          padding: 10px;
+          margin: 10px;
+        }
+        .ingCont{
+          width: 90vw;
+        }
+        .main1{
+          width: 80vw;
+        }
+      }
+    </style>
+    <title>Document</title>
+  </head>
+  <body>
+    <div class="container">
+      <div class="main"></div>
+      <div class="ingBox">
+        <div class="detail">
+          <div class="ingCont">
+            <div class="ingHeading">Ingredients</div>
+            <div class="main1"></div>
+          </div>
+          <div class="SummCont">
+            <div class="SummHeading">Summary</div>
+            <div class="main2"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <script>
+      let main = document.querySelector(".main");
+      let main1 = document.querySelector(".main1");
+      let main2 = document.querySelector(".main2");
+      let data = JSON.parse(localStorage.getItem("singlePage"));
+      console.log(data.id);
+      let ingre = data.id;
+      console.log(ingre);
+
+      fetch(
+        `https://api.spoonacular.com/recipes/${ingre}/ingredientWidget.json?apiKey=29f91f4e6ec34c34850b05edce4f940d`
+      )
+        .then((ingData) => ingData.json())
+        .then(
+          (ingData) =>
+            (main1.innerHTML = ingData.ingredients.map((x) => {
+              return ` <li class="main-li">${x.name}<li>
+        `;
+            }))
+        );
+
+      fetch(
+        `https://api.spoonacular.com/recipes/${ingre}/information?apiKey=29f91f4e6ec34c34850b05edce4f940d`
+      )
+        .then((Summary) => Summary.json())
+        .then((Summary) => {
+          main2.innerHTML = Summary.instructions;
+        });
+
+      main.innerHTML = `<div class="products">
+            <div class="img">
+              <img
+                class="image"
+                src="${data.image}"
+                alt=""
+                width="550px"
+              />
+            </div>
+            <div class="title">${data.title}</div>
+           <a href='index.html' class='anchor'> <button class='singlePageBtn'> Go Back </button></a>
+          </div>
+    `;
+    </script>
+  </body>
+</html>
