@@ -17,7 +17,7 @@
         display: flex;
         flex-wrap: wrap;
         justify-content: center;
-      }      
+      }
       .ingBox {
         display: flex;
         flex-direction: column;
@@ -42,7 +42,6 @@
         flex-direction: column;
         justify-content: center;
         margin-bottom: 20px;
-
       }
       .img {
         border-radius: 20px;
@@ -52,7 +51,7 @@
         margin: auto;
         border-radius: 20px;
       }
-      .image{
+      .image {
         border-radius: 20px;
       }
       .title {
@@ -96,7 +95,7 @@
         color: white;
         padding: 30px;
       }
-      .SummCont{
+      .SummCont {
         display: flex;
         flex-direction: column;
         align-items: center;
@@ -126,10 +125,10 @@
           padding: 10px;
           margin: 10px;
         }
-        .ingCont{
+        .ingCont {
           width: 90vw;
         }
-        .main1{
+        .main1 {
           width: 80vw;
         }
       }
@@ -162,7 +161,7 @@
       console.log(ingre);
 
       fetch(
-        `https://api.spoonacular.com/recipes/${ingre}/ingredientWidget.json?apiKey=29f91f4e6ec34c34850b05edce4f940d`
+        `https://api.spoonacular.com/recipes/${ingre}/ingredientWidget.json?apiKey=c4f45fef9a4244a4b8e73b6616f27440`
       )
         .then((ingData) => ingData.json())
         .then(
@@ -174,7 +173,7 @@
         );
 
       fetch(
-        `https://api.spoonacular.com/recipes/${ingre}/information?apiKey=29f91f4e6ec34c34850b05edce4f940d`
+        `https://api.spoonacular.com/recipes/${ingre}/information?apiKey=c4f45fef9a4244a4b8e73b6616f27440`
       )
         .then((Summary) => Summary.json())
         .then((Summary) => {
